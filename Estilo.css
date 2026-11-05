@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>App Tarefa</title>
+    <link rel="stylesheet" href="css/Estilo.css/Estilo.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="center">Tarefas</h1>
+        <p class="center">Organizando seu dia!</p>
+        <form id="formTarefa">
+            <label for="campoTitulo">Título</label>
+            <input id="campoTitulo" class="campoTitulo" type="text" maxlength="200" required>
+            <label for="campoObs">Observações</label>
+            <input id="campoObs" class="campoObs" type="text" maxlength="500">
+            <label for="campoPrioridade">Prioridade</label>
+            <select id="campoPrioridade" class="browser-default campoPrioridade">
+                <option value="Alto">Alto</option>
+                <option value="Médio" selected>Médio</option>
+                <option value="Baixo">Baixo</option>
+            </select>
+            <p class="mensagemErro" role="alert" aria-live="polite"></p>
+            <button id="botao" class="btn waves-effect waves-light" type="submit">
+                Adicionar tarefa
+                <i class="material-icons right">add</i>
+            </button>
+        </form>
+        <section class="tarefas">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>Tarefa</th>
+                        <th>Observações</th>
+                        <th>Prioridade</th>
+                       
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </div>
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

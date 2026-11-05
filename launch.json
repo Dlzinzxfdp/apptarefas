@@ -1,0 +1,61 @@
+$(function(){
+    $("#formTarefa").submit(inserirTarefa);
+    $(".tarefas").on("click", ".botaoConcluir", concluirTarefa);
+    $(".tarefas").on("click", ".botaoDeletar", deletaLinha);
+});
+
+function inserirTarefa(event){
+    event.preventDefault();
+    var tabela = $(".tarefas").find("tbody");
+    var campoTitulo = $(".campoTitulo").val().trim();
+    var mensagemErro = $(".mensagemErro");
+
+    if(campoTitulo === "") {
+        mensagemErro.text("Por favor, preencha o título da tarefa.");
+        $(".campoTitulo").trigger("focus");
+        return;
+    }
+
+    mensagemErro.text("");
+    var campoObs = $(".campoObs").val().trim();
+    var prioridade = $(".campoPrioridade").val();
+    var linha = funLinha(campoTitulo, campoObs, prioridade);
+    tabela.append(linha);
+    $("#formTarefa")[0].reset();
+    $(".campoTitulo").trigger("focus");
+}
+
+function funLinha(campoTitulo, campoObs, prioridade){
+    var linha = $("<tr>");
+    var colunaTarefa = $("<td>").text(campoTitulo);
+    var colunaObs = $("<td>").text(campoObs);
+    var colunaPrioridade = $("<td>").text(prioridade);
+    var colunaStatus = $("<td>").addClass("statusTarefa").text("Pendente");
+    var colunaAcoes = $("<td>");
+
+    var bConcluir = $("<button>").addClass("botaoConcluir btn-flat").attr("type", "button").text("Concluir");
+    var bDeletar = $("<button>").addClass("botaoDeletar btn-flat").attr("type", "button").attr("aria-label", "Excluir tarefa");
+    var icone = $("<i>").addClass("material-icons").text("delete");
+    bDeletar.append(icone);
+    colunaAcoes.append(bConcluir, bDeletar);
+
+    linha.append(colunaTarefa);
+    linha.append(colunaObs);
+    linha.append(colunaPrioridade);
+    linha.append(colunaStatus);
+    linha.append(colunaAcoes);
+
+    return linha
+
+}
+
+function concluirTarefa(){
+    var linha = $(this).closest("tr");
+    var concluida = linha.toggleClass("tarefaConcluida").hasClass("tarefaConcluida");
+    linha.find(".statusTarefa").text(concluida ? "Concluída" : "Pendente");
+    $(this).text(concluida ? "Reabrir" : "Concluir");
+}
+
+function deletaLinha(){
+    $(this).closest("tr").remove();
+}
